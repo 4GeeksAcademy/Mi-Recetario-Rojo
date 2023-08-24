@@ -5,16 +5,14 @@ import PropTypes from "prop-types";
 const RecipeCard = ({receta}) => {
   return (
     <>
-      <div className="w-1/2 px-4 py-10">
         <img
           src={receta.imageSrc}
           alt={receta.imageAlt}
           className="w-full object-cover object-center  aspect-square lg:h-full lg:w-full rounded-md"
         />
-        <div className="">
-          <h3 className="text-md text-gray-700">
-            {/* <span aria-hidden="true" className="absolute inset-0" /> */}
-            <span className="text-2xl font-bold">{receta.name}</span>
+        <div className="flex flex-col truncate">
+          <div className="text-md text-gray-700">
+            <span className="text-lg font-bold">{receta.name}</span>
             <div className="flex flex-wrap space-x-2">
               { receta.meat && receta.meat != undefined && <i className="fa-solid fa-drumstick-bite text-amber-600"></i> }
               { receta.vegan && <i className="fa-solid fa-seedling text-green-500"></i> }
@@ -24,9 +22,8 @@ const RecipeCard = ({receta}) => {
           <p className="mt-1 text-sm text-gray-800">
             <i className="fa-solid fa-stopwatch text-gray-400"></i> {receta.time} | <i className="fa-solid fa-kitchen-set"></i> {receta.difficulty}{" "}
           </p>
-          </h3>
+          </div>
         </div>
-      </div>
     </>
   );
 };

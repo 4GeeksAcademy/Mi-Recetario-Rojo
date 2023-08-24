@@ -8,6 +8,9 @@ const Recetas = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isDelete, setIsDelete] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({})
+
   const [recipes, setRecipes] = useState([
     {
       id: 1,
@@ -16,7 +19,7 @@ const Recetas = () => {
       imageAlt: "burger",
       name: "Beef Burger",
       time: "20mins",
-      vegan: false,
+      vegan: true,
       ingredients: [
         "lettuce",
         "tomatoes",
@@ -32,7 +35,6 @@ const Recetas = () => {
   const [newRecipe, setNewRecipe] = useState({
     imageSrc:
       "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
-    imageAlt: "",
     name: "",
     time: "",
     vegan: false,
@@ -48,11 +50,17 @@ const Recetas = () => {
     setIsOpen(false);
   };
 
+  const deleteRecipe = (receta) => {
+    setRecipes(recipes.filter( itm => itm.id != receta.id ))
+    setIsDelete(false)
+  }
+
   const fields = ["name", "imageSrc", "difficulty", "time"];
   const proteins = ["vegan", "meat", "spicy", "fish"];
 
   return (
     <>
+    {/* Add new recipe Modal*/}
       <Modal
         isOpen={isOpen}
         title={"Add Recipe"}
@@ -64,12 +72,10 @@ const Recetas = () => {
             key={field}
             placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
             value={newRecipe[field]}
-            onChange={(evt) =>
-              setNewRecipe({ ...newRecipe, [field]: evt.target.value })
-            }
+            onChange={(evt) => setNewRecipe({ ...newRecipe, [field]: evt.target.value }) }
           />
         ))}
-        <div className="flex flex-wrap text-xs">
+        <div className="flex flex-wrap text-sm">
           {proteins.map((prot) => (
             <RecipeCheckbox
               key={prot}
@@ -83,10 +89,38 @@ const Recetas = () => {
         </div>
       </Modal>
 
-      <div className="flex flex-wrap ">
-        {recipes.map((receta, index) => (
-          <RecipeCard key={index} receta={receta} />
-        ))}
+      {/* Delete recipe modal */}
+      <Modal 
+        title={`Delete Recipe`} 
+        isOpen={isDelete} 
+        onClose={() => setIsDelete(false)} 
+
+      > 
+        <div className="px-2 text-xs">
+          {`Sure you want to delete the recipes? ` + (selectedItem.name ? selectedItem.name : '') }
+        </div>
+        <div className="flex flex-row">
+          <div className="w-1/2 mx-2  bg-green-500 rounded-md text-center text-white font-black">
+            <button className="py-1" onClick={()=>deleteRecipe(selectedItem)}>
+              Delete
+            </button>
+          </div>
+          <div className="w-1/2 mx-2 bg-red-500 rounded-md text-center text-white font-black">
+            <button className="py-1" onClick={()=>{setIsDelete(false); setSelectedItem({})}}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <div style={{ minHeight: `calc(100vh - 12rem)` }}>
+        <h2 className="text-2xl font-bold text-black mx-8 my-2">My Recipes</h2>
+        <div className="flex flex-wrap">
+          {recipes.map((receta, index) =>
+            <div key={index} className="w-1/2 px-8 py-2" onClick={()=> {setIsDelete(true); setSelectedItem(receta);}}>
+              <RecipeCard receta={receta}  /> 
+            </div>
+          )}
+        </div>
       </div>
       <button
         className="sticky w-full bottom-0"
