@@ -97,7 +97,7 @@ const Recetas = () => {
 
       > 
         <div className="px-2 text-xs">
-          {`Sure you want to delete the recipes? ` + (selectedItem.name ? selectedItem.name : '') }
+          {`Sure you want to delete the recipe ` + (selectedItem.name ? selectedItem.name : '') + ` ?` }
         </div>
         <div className="flex flex-row">
           <div className="w-1/2 mx-2  bg-green-500 rounded-md text-center text-white font-black">
