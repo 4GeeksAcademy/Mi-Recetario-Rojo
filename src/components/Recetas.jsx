@@ -43,89 +43,20 @@ const Recetas = () => {
       ],
       difficulty: "Normal",
     },
-    {
-      id: 2,
-      imageSrc:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
-      imageAlt: "burger",
-      name: "Beef Burger",
-      time: "20mins",
-      vegan: false,
-      ingredients: [
-        "lettuce",
-        "tomatoes",
-        "sesame",
-        "avocado",
-        "cheddar",
-        "meat",
-      ],
-      difficulty: "Normal",
-    },
-    {
-      id: 2,
-      imageSrc:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
-      imageAlt: "burger",
-      name: "Beef Burger",
-      time: "20mins",
-      vegan: false,
-      ingredients: [
-        "lettuce",
-        "tomatoes",
-        "sesame",
-        "avocado",
-        "cheddar",
-        "meat",
-      ],
-      difficulty: "Normal",
-    },
-    {
-      id: 2,
-      imageSrc:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
-      imageAlt: "burger",
-      name: "Beef Burger",
-      time: "20mins",
-      vegan: false,
-      ingredients: [
-        "lettuce",
-        "tomatoes",
-        "sesame",
-        "avocado",
-        "cheddar",
-        "meat",
-      ],
-      difficulty: "Normal",
-    },
-    {
-      id: 2,
-      imageSrc:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=999&q=80",
-      imageAlt: "burger",
-      name: "Beef Burger",
-      time: "20mins",
-      vegan: false,
-      ingredients: [
-        "lettuce",
-        "tomatoes",
-        "sesame",
-        "avocado",
-        "cheddar",
-        "meat",
-      ],
-      difficulty: "Normal",
-    },
   ]);
 
+  const [ name , setName ] = useState("")
+  
   const addNewRecipe = () => {
-    setRecipes([...recipes, { id: recipes.length + 1, ...newBurger }]);
+    setRecipes([...recipes, { id: recipes.length + 1, name }]);
     setIsOpen(false);
   };
 
   return (
     <>
         <Modal isOpen={isOpen} title={"Add Recipe"} onClose={() => setIsOpen(false)} onConfirm={() => addNewRecipe()}>
-          <input type="text" placeholder="Name" className="border border-1 p-2 rounded-md" />
+          <input type="text" placeholder="Name" onChange={(evt)=> setName(evt.target.value)} value={name || "" } className="border border-1 p-2 rounded-md" />
+          <input type="text" placeholder="Imagen" className="border border-1 p-2 rounded-md" />
           <input type="text" placeholder="Difficulty" className="border border-1 p-2 rounded-md" />
           <input type="text" placeholder="20mins" className="border border-1 p-2 rounded-md" />
         </Modal>
