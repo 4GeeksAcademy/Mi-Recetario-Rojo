@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import RecipeCard from "./RecipeCard";
+import Modal from "./Modal";
 
 const Recetas = () => {
   const newBurger = {
@@ -21,7 +22,7 @@ const Recetas = () => {
     difficulty: "Normal",
   };
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [recipes, setRecipes] = useState([
     {
@@ -123,35 +124,12 @@ const Recetas = () => {
 
   return (
     <>
-      {/* <button className="w-12 h-12 bg-red-500 sticky bottom-0 right-0 m-8 rounded-full">
-            <i className='fa-solid fa-plus'></i>
-      </button> */}
-        <div
-          className={` ${
-            isOpen ? "" : "hidden"
-          } fixed w-full h-full text-black backdrop-blur-sm`}
-        >
-          <div className="fixed top-[30%] flex flex-col w-full px-4 z-[200] drop-shadow-2xl ">
-            <div className="flex flex-row items-center rounded-t-md bg-white h-12 justify-end border border-gray-100 border-1">
-              <div className="mr-auto text-xl font-bold mx-8">New Recipe</div>
-              <i
-              onClick={() => setIsOpen(false)}
-              className="fa-solid fa-close my-auto mx-8"
-              ></i>
-            </div>
-            <div className="flex flex-col space-y-4 py-8 px-8 bg-white">
-              <input type="text" placeholder="Name" className="border border-1 p-2 rounded-md" />
-              <input type="text" placeholder="Difficulty" className="border border-1 p-2 rounded-md" />
-              <input type="text" placeholder="20mins" className="border border-1 p-2 rounded-md" />
-            </div>
-            <button
-                className="bg-green-600 rounded-b-md p-2 w-full text-white font-bold"
-                onClick={() => addNewRecipe()}
-              >
-              Confirm
-            </button>
-            </div>
-        </div>
+        <Modal isOpen={isOpen} title={"Add Recipe"} onClose={() => setIsOpen(false)} onConfirm={() => addNewRecipe()}>
+          <input type="text" placeholder="Name" className="border border-1 p-2 rounded-md" />
+          <input type="text" placeholder="Difficulty" className="border border-1 p-2 rounded-md" />
+          <input type="text" placeholder="20mins" className="border border-1 p-2 rounded-md" />
+        </Modal>
+            
       <div className="flex flex-wrap ">
         {recipes.map((receta, index) => (
           <RecipeCard key={index} receta={receta} />

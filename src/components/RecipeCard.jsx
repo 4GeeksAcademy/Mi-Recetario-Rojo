@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import PropTypes from "prop-types";
 
-const RecipeCard = ({ receta }) => {
+const RecipeCard = ({receta}) => {
   return (
     <>
       <div className="w-1/2 px-4 py-10">
@@ -29,5 +30,12 @@ const RecipeCard = ({ receta }) => {
     </>
   );
 };
+
+
+RecipeCard.propTypes = {
+
+  receta: PropTypes.object
+  
+}
 
 export default RecipeCard;
