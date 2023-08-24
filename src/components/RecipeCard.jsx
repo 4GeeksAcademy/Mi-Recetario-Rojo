@@ -20,7 +20,7 @@ const RecipeCard = ({receta}) => {
               { receta.fish && <i className="fa-solid fa-fish text-blue-500"></i> }
             </div>
           <p className="mt-1 text-sm text-gray-800">
-            <i className="fa-solid fa-stopwatch text-gray-400"></i> {receta.time} | <i className="fa-solid fa-kitchen-set"></i> {receta.difficulty}{" "}
+            <i className="fa-solid fa-stopwatch text-gray-400"></i> {receta.time} <i className="fa-solid fa-kitchen-set text-red-500"></i> {receta.difficulty}{" "}
           </p>
           </div>
         </div>
