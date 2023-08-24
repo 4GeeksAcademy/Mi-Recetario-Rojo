@@ -7,7 +7,7 @@ const Modal = (props) => {
     <div
           className={` ${
             props.isOpen ? "" : "hidden"
-          } fixed w-full h-full text-black backdrop-blur-sm`}
+          } fixed w-full h-full text-black backdrop-blur-sm z-[1000]`}
         >
           <div className="fixed top-[30%] flex flex-col w-full px-4 z-[200] drop-shadow-2xl ">
             <div className="flex flex-row items-center rounded-t-md bg-white h-12 justify-end border border-gray-100 border-1">
