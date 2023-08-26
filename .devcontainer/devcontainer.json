@@ -1,40 +1,21 @@
 {
     "name": "React Vite Dev Container",
-    "image": "node:16.20.1",
     "dockerComposeFile": "docker-compose.yml",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "extensions": [
-		"dbaeumer.vscode-eslint",
-		"dracula-theme.theme-dracula",
-		"esbenp.prettier-vscode",
-		"visualstudioexptteam.vscodeintellicode",
-		"eamodio.gitlens",
-		"cssho.vscode-svgviewer",
-		"PROxZIMA.sweetdracula",
-		"dsznajder.es7-react-js-snippets",
-		"burkeholland.simple-react-snippets",
-		"bradlc.vscode-tailwindcss"
-	],
-    "settings": {
-      "workbench.colorTheme": "Sweet Dracula",
-      "editor.fontFamily": "'Cascadia Code' ,'Fira Code', 'Courier New', monospace",
-      "editor.fontLigatures": true,
-      "editor.tabSize": 2,
-      "editor.wordWrap": "on",
-      "editor.formatOnSave": true,
-      "files.autoSave": "off",
-      "terminal.integrated.defaultProfile.linux": "zsh",
-      "javascript.updateImportsOnFileMove.enabled": "always",
-      "typescript.updateImportsOnFileMove.enabled": "always",
-      "prettier.singleQuote": true,
-      "prettier.jsxSingleQuote": true,
-      "prettier.printWidth": 80
+    "features": {
+      "ghcr.io/devcontainers/features/github-cli:1": {
+        "installDirectlyFromGitHubRelease": true,
+        "version": "latest"
+      },
+      "ghcr.io/devcontainers/features/node:1": {
+        "nodeGypDependencies": true,
+        "version": "lts"
+      }
     },
     "forwardPorts": [3000, 3001],
-
-	"onCreateCommand": "(cp .env.example .env || echo \".env creation failed\"); (pip install --no-cache-dir -r requirements.txt || echo \"pip install failed\");",
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python docs/assets/greeting.py both > /workspaces/.codespaces/shared/first-run-notice.txt && npm install",
-  "overrideCommand": false
+    "onCreateCommand": "(cp .env.example .env || echo \".env creation failed\"); (pip install --no-cache-dir -r requirements.txt || echo \"pip install failed\");",
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "python docs/assets/greeting.py both > /workspaces/.codespaces/shared/first-run-notice.txt && npm install",
+    "overrideCommand": false
 }
   
