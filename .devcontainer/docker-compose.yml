@@ -1,0 +1,45 @@
+version: '3'
+services:
+  minio:
+    container_name: minio
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ROOT_USER: yourminiouser
+      MINIO_ROOT_PASSWORD: yourminiopassword
+    volumes:
+      - minio-data:/data
+    command: server /data
+    entrypoint: sh -c "mkdir -p /data/imagenes && /usr/bin/docker-entrypoint.sh $0 $@"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_USER: youruser
+      POSTGRES_PASSWORD: yourpassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  dev-container:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Reemplaza por la ruta a tu Dockerfile de devcontainer
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"  # Puerto de Node.js
+      - "5000:5000"  # Puerto de Flask/Python
+    depends_on:
+      - minio
+      - postgres
+
+volumes:
+  minio-data:
+  postgres-data:
