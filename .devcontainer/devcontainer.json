@@ -1,21 +1,20 @@
 {
-    "name": "React Vite Dev Container",
-    "dockerComposeFile": "docker-compose.yml",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "features": {
-      "ghcr.io/devcontainers/features/github-cli:1": {
-        "installDirectlyFromGitHubRelease": true,
-        "version": "latest"
-      },
-      "ghcr.io/devcontainers/features/node:1": {
-        "nodeGypDependencies": true,
-        "version": "lts"
-      }
+  "name": "React Vite Dev Container",
+  "dockerComposeFile": ".devcontainer/docker-compose.yml",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
     },
-    "forwardPorts": [3000, 3001],
-    "onCreateCommand": "(cp .env.example .env || echo \".env creation failed\"); (pip install --no-cache-dir -r requirements.txt || echo \"pip install failed\");",
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "python docs/assets/greeting.py both > /workspaces/.codespaces/shared/first-run-notice.txt && npm install",
-    "overrideCommand": false
+    "ghcr.io/devcontainers/features/node:1": {
+      "nodeGypDependencies": true,
+      "version": "lts"
+    }
+  },
+  "forwardPorts": [3000, 3001],
+  "onCreateCommand": "cp .env.example .env && pip install --no-cache-dir -r requirements.txt && npm install",
+  "postCreateCommand": "python docs/assets/greeting.py both > /workspaces/.codespaces/shared/first-run-notice.txt",
+  "remoteUser": "vscode"
 }
   
