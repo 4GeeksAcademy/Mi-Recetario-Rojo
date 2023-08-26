@@ -20,5 +20,17 @@
 	// "customizations": {},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "root"
+	"remoteUser": "root",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"lefd.sweetdracula-monokai"
+			],
+			"settings": {
+				"workbench.colorTheme": "Sweet Dracula Monokai",
+				"editor.fontFamily": "'Cascadia Code' ,'Fira Code', 'Courier New', monospace",
+				"editor.fontLigatures": true
+			}
+		}
+	}
 }
