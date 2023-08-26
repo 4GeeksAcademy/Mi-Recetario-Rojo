@@ -5,7 +5,6 @@
 		"dbaeumer.vscode-eslint",
 		"dracula-theme.theme-dracula",
 		"esbenp.prettier-vscode",
-		"msjsdiag.debugger-for-chrome",
 		"visualstudioexptteam.vscodeintellicode",
 		"eamodio.gitlens",
 		"cssho.vscode-svgviewer",
@@ -29,6 +28,7 @@
       "prettier.jsxSingleQuote": true,
       "prettier.printWidth": 80
     },
-    "postCreateCommand": "npm install"
-  }
+    "postCreateCommand": "bash -c 'docker-compose -f /workspaces/Mi-Recetario-Rojo/docker-compose.yml up'",
+    "overrideCommand": false
+}
   
