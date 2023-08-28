@@ -1,6 +1,7 @@
 // UsuarioModel.mjs
 import { DataTypes } from 'sequelize';
 import sequelize from '../sequelizeConfig.js';
+import Receta from "./recipes.js"
 
 const Usuario = sequelize.define('Usuario', {
   id: {
@@ -22,5 +23,7 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false,
   },
 });
+
+//ßUsuario.hasMany(Receta, { as: 'recetas', foreignKey: 'usuarioId' });
 
 export default Usuario;
