@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import Modal from "./Modal";
 import RecipeInputField from "./RecipeInput.jsx";
@@ -55,6 +55,18 @@ const DeleteRecipeModal = ({ isOpen, onClose, selectedItem, deleteRecipe }) => {
 };
 
 const Recetas = () => {
+
+  useEffect(()=>{
+    fetch(import.meta.env.VITE_BACKEND_URL)
+      .then((resp)=>{
+        return resp.json()
+      })
+      .then((data)=>{
+        console.log(data.message)
+      })
+      .catch((err)=> console.log(err))
+  },[])
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
