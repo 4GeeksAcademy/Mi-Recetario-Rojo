@@ -56,15 +56,20 @@ const DeleteRecipeModal = ({ isOpen, onClose, selectedItem, deleteRecipe }) => {
 
 const Recetas = () => {
 
+  const api = import.meta.env.VITE_BACKEND_URL
+
   useEffect(()=>{
-    fetch(import.meta.env.VITE_BACKEND_URL)
-      .then((resp)=>{
-        return resp.json()
-      })
-      .then((data)=>{
+
+    const fetchMessage = async () => {
+      try{
+        let resp = await fetch(api)
+        let data = await resp.json()
         console.log(data.message)
-      })
-      .catch((err)=> console.log(err))
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchMessage()
   },[])
 
   const [isOpen, setIsOpen] = useState(false);
