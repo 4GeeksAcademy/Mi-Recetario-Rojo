@@ -24,6 +24,8 @@ const Receta = sequelize.define('Receta', {
       key: 'id',         // Nombre de la columna en la tabla de Usuarios
     },
   },
+},{
+  init: true
 });
 
 // Establece la relación con el modelo de Usuario

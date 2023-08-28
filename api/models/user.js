@@ -22,6 +22,8 @@ const Usuario = sequelize.define('Usuario', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+},{
+  init: true
 });
 
 Usuario.hasMany(Receta, { as: 'recetas', foreignKey: 'usuarioId' });

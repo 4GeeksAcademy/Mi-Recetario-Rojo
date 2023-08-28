@@ -1,24 +1,25 @@
 // usuarioController.mjs
 import Usuario from '../models/user.js';
+import Receta from '../models/recipes.js';
 
 // Crear un nuevo usuario
 export const crearUsuario = async (req, res) => {
-    //console.log(req)
-    try {
-        const nuevoUsuario = await Usuario.create(req.body);
-        res.status(201).json(nuevoUsuario);
-    } catch (error) {
-        res.status(400).json({ error: 'Error al crear el usuario' + error });
-    }
+  //console.log(req)
+  try {
+    const nuevoUsuario = await Usuario.create(req.body);
+    res.status(201).json(nuevoUsuario);
+  } catch (error) {
+    res.status(400).json({ error: 'Error al crear el usuario' + error });
+  }
 };
 
 // Obtener todos los usuarios
 export const obtenerUsuarios = async (req, res) => {
   try {
     const usuarios = await Usuario.findAll(
-      // {
-      //   attributes: ['id','name'] // List the columns you want
-      // }
+      {
+        attributes: ['id', 'name'], // List the columns you want
+      },
     );
     console.log(usuarios)
     res.status(200).json(usuarios);
@@ -31,7 +32,17 @@ export const obtenerUsuarios = async (req, res) => {
 export const obtenerUsuario = async (req, res) => {
   const { id } = req.params;
   try {
-    const usuario = await Usuario.findByPk(id);
+    const usuario = await Usuario.findByPk(id,
+      {
+        attributes: ['id', 'name'], // List the columns you want
+        include: [
+          {
+            model: Receta,
+            as: 'recetas', // Nombre de la asociación definida en el modelo de Usuario
+          },
+        ],
+      },
+    );
     if (usuario) {
       res.status(200).json(usuario);
     } else {
