@@ -2,7 +2,7 @@ import  express from 'express'
 import pkg from 'pg';
 import sequelize from "./sequelizeConfig.js"
 
-import setupModels from "./models/setupModels.js"
+//import setupModels from "./models/setupModels.js"
 
 import userRoutes from "./routes/user.js"
 import recipeRoutes from "./routes/recipe.js"
@@ -16,7 +16,7 @@ app.use(userRoutes)
 app.use(recipeRoutes)
 
 // Configuración de modelos y relaciones
-const models = setupModels(sequelize);
+//const models = setupModels(sequelize);
 
 // Conexión a la base de datos y sincronización de modelos
 sequelize
