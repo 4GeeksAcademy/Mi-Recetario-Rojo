@@ -1,12 +1,20 @@
 // RecetaController.mjs
 import Receta from '../models/recipes.js';
+import Usuario from '../models/user.js';
 
 // Crear una nueva receta para un usuario
 export const crearReceta = async (req, res) => {
   try {
-    const { usuarioId } = req.params;
+    const { username } = req.params;
+    const usuario = await Usuario.findOne(
+      {
+        where: {
+          username
+        }
+      },
+    );
     //console.log(req.body)
-    const nuevaReceta = await Receta.create({ ...req.body, usuarioId });
+    const nuevaReceta = await Receta.create({ ...req.body, usuarioId : usuario.id });
     
     res.status(201).json(nuevaReceta);
   } catch (error) {
@@ -16,16 +24,22 @@ export const crearReceta = async (req, res) => {
 
 // Obtener todas las recetas de un usuario
 export const obtenerRecetasUsuario = async (req, res) => {
-  const { usuarioId } = req.params;
-
-  
+  const { username } = req.params;
   try {
-    const recetas = await Receta.findAll({
-      where: { usuarioId },
-    });
-    
-    console.log( recetas, "💚")
-
+    const recetas = await Usuario.findOne(
+      {
+        where: {
+          username
+        },
+        attributes: ['id', 'name'], // List the columns you want
+        include: [
+          {
+            model: Receta,
+            as: 'recetas', // Nombre de la asociación definida en el modelo de Usuario
+          },
+        ],
+      },
+    );
     res.status(200).json(recetas);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las recetas del usuario '+ error });

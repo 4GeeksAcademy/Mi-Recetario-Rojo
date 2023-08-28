@@ -15,6 +15,8 @@ Currently, two official plugins are available:
 - init with `npm run backend`
 
 - `psql -U postgres -h localhost`
+- `psql -U postgres -h localhost -c "CREATE DATABASE example;"`
+- `psql -U postgres -h localhost -c "DROP DATABASE example;"`
 
 Esta es la documentación de la API de Mi Recetario Rojo. A continuación se describen las rutas disponibles y los endpoints correspondientes.
 
@@ -35,7 +37,7 @@ Crea un nuevo usuario.
 
 - **URL:** `/usuarios`
 - **Método:** POST
-- **Cuerpo de la solicitud:** Objeto JSON con los atributos del usuario (name, email y password).
+- **Cuerpo de la solicitud:** Objeto JSON con los atributos del usuario (name, username,email y password).
 - **Respuesta exitosa:**
   - Código de estado: 201 Created
   - Contenido: Usuario recién creado con sus atributos.
@@ -44,10 +46,10 @@ Crea un nuevo usuario.
 
 Obtiene una lista de recetas de un usuario específico.
 
-- **URL:** `/usuarios/:userId/recetas`
+- **URL:** `/usuarios/:username/recetas`
 - **Método:** GET
 - **Parámetros de ruta:**
-  - `userId` (obligatorio): ID del usuario del cual se desean obtener las recetas.
+  - `username` (obligatorio): username del usuario del cual se desean obtener las recetas.
 - **Respuesta exitosa:**
   - Código de estado: 200 OK
   - Contenido: Lista de recetas con sus atributos.
@@ -56,10 +58,10 @@ Obtiene una lista de recetas de un usuario específico.
 
 Crea una nueva receta para un usuario específico.
 
-- **URL:** `/usuarios/:userId/recetas`
+- **URL:** `/usuarios/:username/recetas`
 - **Método:** POST
 - **Parámetros de ruta:**
-  - `userId` (obligatorio): ID del usuario para el cual se creará la receta.
+  - `username` (obligatorio): username del usuario para el cual se creará la receta.
 - **Cuerpo de la solicitud:** Objeto JSON con los atributos de la receta (titulo y descripcion).
 - **Respuesta exitosa:**
   - Código de estado: 201 Created

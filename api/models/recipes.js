@@ -1,7 +1,7 @@
 // RecetaModel.mjs
 import { DataTypes } from 'sequelize';
 import sequelize from '../sequelizeConfig.js';
-import Usuario from './user.js';  // Importa el modelo de Usuario
+// import Usuario from './user.js';  // Importa el modelo de Usuario
 
 const Receta = sequelize.define('Receta', {
   id: {
@@ -9,12 +9,40 @@ const Receta = sequelize.define('Receta', {
     primaryKey: true,
     autoIncrement: true,
   },
-  titulo: {
+  name: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
+  },
+  time:{
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   descripcion: {
     type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  image: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  difficulty: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  vegan: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  spicy: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  fish: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  meat: {
+    type: DataTypes.BOOLEAN,
     allowNull: true,
   },
   usuarioId: {
@@ -28,7 +56,10 @@ const Receta = sequelize.define('Receta', {
   init: true
 });
 
-// Establece la relación con el modelo de Usuario
+// // Import Usuario model here
+// import Usuario from './user.js';
+
+// Define the association
 // Receta.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
 
 // Receta.associate = models => {
