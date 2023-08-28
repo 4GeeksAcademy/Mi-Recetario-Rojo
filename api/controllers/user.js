@@ -15,10 +15,12 @@ export const crearUsuario = async (req, res) => {
 // Obtener todos los usuarios
 export const obtenerUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll();
+    const usuarios = await Usuario.findAll({
+      attributes: ['id', 'email']
+    });
     res.status(200).json(usuarios);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener los usuarios' });
+    res.status(500).json({ error: 'Error al obtener los usuarios ' + error });
   }
 };
 

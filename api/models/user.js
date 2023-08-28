@@ -24,6 +24,6 @@ const Usuario = sequelize.define('Usuario', {
   },
 });
 
-//ßUsuario.hasMany(Receta, { as: 'recetas', foreignKey: 'usuarioId' });
+Usuario.hasMany(Receta, { as: 'recetas', foreignKey: 'usuarioId' });
 
 export default Usuario;

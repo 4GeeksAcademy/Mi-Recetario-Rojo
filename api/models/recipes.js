@@ -17,17 +17,17 @@ const Receta = sequelize.define('Receta', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  // usuarioId: {
-  //   type: DataTypes.INTEGER,
-  //   references: {
-  //     model: 'Usuarios', // Nombre de la tabla de Usuarios en la base de datos
-  //     key: 'id',         // Nombre de la columna en la tabla de Usuarios
-  //   },
-  // },
+  usuarioId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Usuarios', // Nombre de la tabla de Usuarios en la base de datos
+      key: 'id',         // Nombre de la columna en la tabla de Usuarios
+    },
+  },
 });
 
 // Establece la relación con el modelo de Usuario
-//Receta.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
+// Receta.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
 
 // Receta.associate = models => {
 //   Receta.belongsTo(models.Usuario, { as: 'usuario', foreignKey: 'usuarioId' });

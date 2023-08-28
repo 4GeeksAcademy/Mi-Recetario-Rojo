@@ -5,7 +5,7 @@ import Receta from '../models/recipes.js';
 export const crearReceta = async (req, res) => {
   try {
     const { usuarioId } = req.params;
-    console.log(req.body)
+    //console.log(req.body)
     const nuevaReceta = await Receta.create({ ...req.body, usuarioId });
     
     res.status(201).json(nuevaReceta);
