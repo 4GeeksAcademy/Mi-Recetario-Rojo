@@ -6,7 +6,7 @@ const RecipeCard = ({receta}) => {
   return (
     <>
         <img
-          src={receta.imageSrc}
+          src={receta.image}
           alt={receta.imageAlt}
           className="w-full object-cover object-center  aspect-square lg:h-full lg:w-full rounded-md"
         />
