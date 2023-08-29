@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import Modal from "./Modal";
 import RecipeInputField from "./RecipeInput.jsx";
 import RecipeCheckbox from "./RecipeCheckbox.jsx";
 
 const AddRecipeModal = ({ isOpen, onClose, onConfirm, newRecipe, setNewRecipe }) => {
-  const fields = ["name", "imageSrc", "difficulty", "time"];
+  const fields = ["name", "imageSrc", "difficulty", "time", "descripcion"];
   const proteins = ["vegan", "meat", "spicy", "fish"];
 
   return (
@@ -55,6 +55,24 @@ const DeleteRecipeModal = ({ isOpen, onClose, selectedItem, deleteRecipe }) => {
 };
 
 const Recetas = () => {
+
+  const api = import.meta.env.VITE_BACKEND_URL
+
+  useEffect(()=>{
+
+    const fetchRecipes = async () => {
+      try{
+        let resp = await fetch(api + '/usuarios/arisita/recetas' )
+        let data = await resp.json()
+        setRecipes(data.recetas)
+        console.log(data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchRecipes()
+  },[])
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
@@ -70,34 +88,48 @@ const Recetas = () => {
       ingredients: ["lettuce", "tomatoes"],
       difficulty: "Normal",
   });
-  const [recipes, setRecipes] = useState([
-    {
-      id: 1,
-      imageSrc:
-        "https://plus.unsplash.com/premium_photo-1675252369719-dd52bc69c3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-      imageAlt: "burger",
-      name: "Beef Burger",
-      time: "20mins",
-      vegan: true,
-      ingredients: [
-        "lettuce",
-        "tomatoes",
-        "sesame",
-        "avocado",
-        "cheddar",
-        "meat",
-      ],
-      difficulty: "Normal",
-    },
-  ]);
+  const [recipes, setRecipes] = useState([]);
 
-  const addNewRecipe = () => {
-    setRecipes([...recipes, { id: recipes.length + 1, ...newRecipe }]);
+  const addNewRecipe = async () => {
+    
+    const api = import.meta.env.VITE_BACKEND_URL
+
+    const newRecipeResp = await fetch(api + '/usuarios/arisita/recetas',{
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...newRecipe, image: newRecipe.imageSrc }), 
+    })
+
+    let data = await newRecipeResp.json()
+
+    setRecipes([...recipes, data ]);
+    
     setIsOpen(false);
   };
 
-  const deleteRecipe = (receta) => {
-    setRecipes(recipes.filter((itm) => itm.id !== receta.id));
+  const deleteRecipe = async (receta) => {
+    const api = import.meta.env.VITE_BACKEND_URL
+
+    try{
+      const deletedRecipe = await fetch(api + '/recetas/' + receta.id ,{
+        method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+        //body: JSON.stringify({ ...newRecipe, image: newRecipe.imageSrc }), 
+      })
+  
+      let resp = await deletedRecipe.ok
+  
+      if(resp){
+        setRecipes(recipes.filter((itm) => itm.id !== receta.id));
+      }
+
+    }catch(err){
+      console.log(err)
+    }
     setIsDelete(false);
   };
 

@@ -1,20 +1,12 @@
-# Use the official Node.js 14 image
-FROM node:16.20.1
+FROM mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye
 
-# Set the working directory
-WORKDIR /app
+# [Optional] Uncomment this section to install additional OS packages.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends postgresql-client
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# [Optional] Uncomment if you want to install an additional version of node using nvm
+ARG EXTRA_NODE_VERSION=16.20.1
+RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
-# Install project dependencies
-RUN npm install
-
-# Install global dependencies if needed
-RUN npm install -g vite
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Command to run the app
-CMD ["npm", "run", "dev"]
+# [Optional] Uncomment if you want to install more global node modules
+# RUN su node -c "npm install -g <your-package-list-here>"
