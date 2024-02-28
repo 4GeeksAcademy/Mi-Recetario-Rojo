@@ -1,13 +1,13 @@
 import React from 'react'
 import './App.css'
-import Recetas from './components/Recetas'
+import Recipes from './components/Recipes'
 import Navbar from './components/Navbar'
 
 function App() {
   return (
     <>
       <Navbar/>
-      <Recetas/>
+      <Recipes/>
     </>
   )
 }
